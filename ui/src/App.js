@@ -3,8 +3,8 @@ import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
 
-// IMPORTANT: backend container hostname is "api"
-const apiUrl = `http://api:8081`;
+// USE PUBLIC EC2 IP — NOT DOCKER HOSTNAME
+const apiUrl = `http://98.92.67.80:8081`;
 
 class App extends Component {
   state = {
