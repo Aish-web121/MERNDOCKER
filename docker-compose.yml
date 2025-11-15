@@ -19,11 +19,3 @@ services:
     image: mongo
     ports:
       - '27017:27017'
-
-  jenkins:
-    image: jenkins/jenkins:lts
-    ports:
-      - '8080:8080'
-      - '50000:50000'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
