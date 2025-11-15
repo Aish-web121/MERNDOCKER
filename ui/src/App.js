@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
 
-const apiUrl = `http://localhost:8081`;
+// IMPORTANT: backend container hostname is "api"
+const apiUrl = `http://api:8081`;
 
 class App extends Component {
   state = {
@@ -11,15 +12,23 @@ class App extends Component {
   };
 
   async createUser() {
-    await axios.get(apiUrl + '/user-create');
-    this.loadUsers();
+    try {
+      await axios.get(apiUrl + '/user-create');
+      this.loadUsers();
+    } catch (err) {
+      console.error("Error creating user:", err);
+    }
   }
 
   async loadUsers() {
-    const res = await axios.get(apiUrl + '/users');
-    this.setState({
-      users: res.data
-    });
+    try {
+      const res = await axios.get(apiUrl + '/users');
+      this.setState({
+        users: res.data
+      });
+    } catch (err) {
+      console.error("Error loading users:", err);
+    }
   }
 
   componentDidMount() {
@@ -31,7 +40,11 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <button onClick={() => this.createUser()}>Create User</button>
+          
+          <button onClick={() => this.createUser()}>
+            Create User
+          </button>
+
           <p>Users list:</p>
           <ul>
             {this.state.users.map(user => (
